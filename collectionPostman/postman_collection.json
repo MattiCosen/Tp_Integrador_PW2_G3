@@ -25,6 +25,25 @@
 			"response": []
 		},
 		{
+			"name": "GET ",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "LISTAR TABLA TAREAS",
 			"request": {
 				"method": "GET",
@@ -258,6 +277,63 @@
 						{
 							"key": "dni",
 							"value": "\"PAS45569-k \""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "CREAR TOKEN",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "LOGIN CON TOKEN",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoxLCJub21icmUiOiJmcmFuY2siLCJlbWFpbCI6ImZqdHN5c3RlbXNAZW1haWwuY29tIn0sImlhdCI6MTYyMjc0ODU3NCwiZXhwIjoxNjIyNzQ4NjA2fQ.f1RnsAZJj8h5eNepnXKSln70gDg2mHyfwAtP30DrwT0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/api/posts",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"api",
+						"posts"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
 						}
 					]
 				}
