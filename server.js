@@ -18,10 +18,10 @@ const tasksAPI = require("./src/handlers");
 app.use("/", tasksAPI);
 
 // chequeo de conexión
-connection.connect((error) => {
-  if (error) throw error;
-  console.info("la base de datos esta funcionando");
-});
+// connection.connect((error) => {
+//   if (error) throw error;
+//   console.info("la base de datos esta funcionando");
+// });
 
 initConnection().then(() => {
   // escuchar el puerto (alt96 = `)
