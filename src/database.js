@@ -161,6 +161,18 @@ module.exports = {
     });
   },
 
+  async findByUsernameAndPass(username, password) {
+    const [user] = await connection.execute(
+      "SELECT * FROM usuarios WHERE username = ? AND pass = ?",
+      [username, password]
+    );
+    if (user.length) {
+      return user[0];
+    } else {
+      return undefined;
+    }
+  },
+
   //Estas funciones que siguen las dejamos comentadas por ahora y las vamos incorporando a medida que las necesitamos
 
   // leer un usuario por DNI sin contraseña y pass
