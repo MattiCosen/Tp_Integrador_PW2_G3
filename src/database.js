@@ -16,7 +16,7 @@ module.exports = {
 
   // pedir tabla tareas
   //http://localhost:3000/tareas
-  async list() {
+  async listarTareas() {
     let tareas = [];
 
     [tareas] = await connection.query(
@@ -42,7 +42,7 @@ module.exports = {
 
   // pedir tabla usuarios
   ////http://localhost:3000/usuarios
-  async list_users() {
+  async listarUsuarios() {
     let usuarios = [];
 
     [usuarios] = await connection.query(
@@ -66,9 +66,36 @@ module.exports = {
     return usuarios;
   },
 
-  // leer una tarea por dni
+  // leer una tarea por id
+  // /tarea/:id
+  async obtenerTareaPorId(id) {
+    const sql = `SELECT * FROM tareas WHERE id = ${id}`;
 
-  async getTask(dni) {
+    const [tareas] = await connection.query(sql, (err, resultado) => {
+      if (!err) {
+        res.status(200).send({
+          Observaciones: ` la TAREA para el usuario  con DNI : ${dni} es:`,
+          resultado,
+        });
+      } else {
+        console.log(err);
+        res.status(404).send({
+          Observaciones: `Se encontraron los siguientes errores: `,
+          err,
+        });
+      }
+    });
+
+    if (tareas.length) {
+      return tareas[0];
+    } else {
+      return undefined;
+    }
+  },
+
+  // leer una tarea por dni
+  // /tarea/:dni
+  async obtenerTareaPorDNI(dni) {
     const sql = `SELECT * FROM tareas WHERE dni_usuario= ${dni}`;
 
     const [tareas] = await connection.query(sql, (err, resultado) => {
@@ -91,6 +118,47 @@ module.exports = {
     } else {
       return undefined;
     }
+  },
+
+  async buscarUsuarioPorDNI(dni) {
+    const [users] = await connection.execute(
+      "SELECT * FROM usuarios WHERE dni_usuario = ?",
+      [userId]
+    );
+    if (users.length) {
+      return users[0];
+    } else {
+      return undefined;
+    }
+  },
+
+  // eliminar tarea de usuario por dni
+
+  async removeTask(dni) {
+    const user = await this.searchUserbyDNI(dni);
+
+    if (!user) {
+      throw new Error(`No existe un usuario con dni "${dni}`);
+    }
+
+    const sql = `DELETE FROM tareas WHERE dni_usuario=${dni}`;
+
+    await connection.query(sql, (err) => {
+      if (err) {
+        console.log(err);
+        res.status(404).send({
+          Observaciones: `Se encontraron los siguientes errores: `,
+          err,
+        });
+      } else {
+        res.status(200).send({
+          Observaciones: `Las tareas del Usuario con DNI: ${dni} fueron eliminadas `,
+        });
+        console.info(
+          ` Las tareas del Usuario con DNI: ${dni} fueron eliminadas`
+        );
+      }
+    });
   },
 
   //Estas funciones que siguen las dejamos comentadas por ahora y las vamos incorporando a medida que las necesitamos
@@ -226,26 +294,6 @@ module.exports = {
   //     });
   //   });
 
-  //   app.delete ('/delete_tarea/:dni', (req, res) => {
-  //     const {dni} = req.params;
-  //     const sql = `DELETE FROM tareas WHERE dni_usuario=${dni}`;
-  //     connection.query (sql, err => {
-  //       if (err) {
-  //         console.log (err);
-  //         res.status (404).send ({
-  //           Observaciones: `Se encontraron los siguientes errores: `,
-  //           err,
-  //         });
-  //       } else {
-  //         res.status (200).send ({
-  //           Observaciones: `Las tareas del Usuario con DNI: ${dni} fueron eliminadas `,
-  //         });
-  //         console.info (
-  //           ` Las tareas del Usuario con DNI: ${dni} fueron eliminadas`
-  //         );
-  //       }
-  //     });
-  //   });
   //   app.delete ('/delete_usuario/:dni', (req, res) => {
   //     const {dni} = req.params;
   //     const sql = `DELETE FROM usuarios WHERE dni_usuario=${dni}`;
