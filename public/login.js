@@ -42,7 +42,8 @@ async function login() {
     contentUser.style.display = ""; // Muestro nuevamente el contenedor que oculté en initApp
     mostrarUsuario(); // Llamo a mostrarUsuario para que appendee el template dentro de contentUser
 
-    mostrarTareas();
+    const dni = "DNI33.333.333"; // usuario de prueba
+    mostrarTareas(dni);
     updateLoginStatus();
   }
 }

@@ -102,10 +102,11 @@ async function initApp() {
     contentUser.style.display = "none";
   }
 
-  await mostrarTareas();
+  const dni = "DNI33.333.333"; // usuario de prueba
+  await mostrarTareas(dni);
 }
 
-async function mostrarTareas() {
+async function mostrarTareas(dni) {
   // Si el usuario está logueado, muestro sus tareas
   if (localStorage.getItem("token")) {
     while (contentTable.children.length > 1) {
@@ -114,7 +115,7 @@ async function mostrarTareas() {
       contentTable.removeChild(item);
     }
 
-    const data = await api("/tarea/:dni", "get");
+    const data = await api(`/tareas/${dni}`, "get");
 
     data.forEach(({ titulo, estado, created, id }) =>
       addRow(titulo, estado, created, id)
