@@ -1,12 +1,20 @@
+// Falta agregar middlewares de validadores
+
 const express = require("express");
+
+const database = require("../../database");
+const requestHandler = require("../../middlewares/requestHandler");
 
 const usuariosRouting = express.Router();
 
-const show = require("./show");
+usuariosRouting.get(
+  "/usuarios/:dni_usuario",
+  requestHandler(async (req, res) => {
+    const { dni_usuario } = req.params;
+    const usuario = await database.obtenerUsuarioporDNI(dni_usuario);
 
-show(usuariosRouting);
+    res.json(usuario);
+  })
+);
 
-const usuariosAPI = express.Router();
-
-usuariosAPI.use("/usuarios", usuariosRouting);
-module.exports = usuariosAPI;
+module.exports = usuariosRouting;

@@ -1,21 +1,30 @@
 const express = require("express");
 const database = require("../database");
-const authenticateJWT = require("../middlewares/authenticate.JWT");
+const autenticarJWT = require("../middlewares/autenticarJWT");
 // const { ValidationError } = require("../validations/validationError");
-const authRouting = require("./auth");
-const tareasRouting = require("./tareas");
+const autenticarRouting = require("./autenticar");
 
+const tareasRouting = require("./tareas");
+const usuariosRouting = require("./usuarios");
 const apiRouting = express.Router();
 
-apiRouting.use("/api", authRouting, authenticateJWT, tareasRouting);
+// apiRouting.use("/api", authRouting, authenticateJWT, usersRouting);
 
-apiRouting.use((err, req, res, next) => {
-  //   if (err instanceof ValidationError) {
-  //     res.status(400).json({
-  //       status: "error",
-  //       error: err.formatErrors(),
-  //     });
-  //   }
-});
+apiRouting.use(
+  "/api",
+  autenticarRouting,
+  autenticarJWT,
+  tareasRouting,
+  usuariosRouting
+);
+
+// apiRouting.use((err, req, res, next) => {
+//   if (err instanceof ValidationError) {
+//     res.status(400).json({
+//       status: "error",
+//       error: err.formatErrors(),
+//     });
+//   }
+// });
 
 module.exports = apiRouting;

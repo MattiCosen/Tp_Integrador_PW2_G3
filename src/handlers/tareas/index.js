@@ -1,14 +1,33 @@
+// Falta incorporar validadores como middlewares
+
 const express = require("express");
+
+const database = require("../../database");
+const requestHandler = require("../../middlewares/requestHandler");
 
 const tareasRouting = express.Router();
 
-const list = require("./list");
-const show = require("./show");
+// obtener tarea por DNI de usuario
+tareasRouting.get(
+  "/tareas/:dni_usuario",
+  requestHandler(async (req, res) => {
+    const { dni_usuario } = req.params;
+    const tareas = await database.obtenerTareaporDNI(dni_usuario);
 
-list(tareasRouting);
-show(tareasRouting);
+    res.json(tareas);
+  })
+);
 
-const tareasAPI = express.Router();
+// // agregar tareas
+// //--  insert  en tabla tareas
+tareasRouting.post(
+  "/tareas/add",
+  requestHandler(async (req, res) => {
+    const tarea = req.body.tarea;
+    const resul = await database.insertarTarea(tarea);
 
-tareasAPI.use("/tareas", tareasRouting);
-module.exports = tareasAPI;
+    res.json(resul);
+  })
+);
+
+module.exports = tareasRouting;

@@ -1,21 +1,27 @@
-/*  para ejecutar la aplicacion --> npm install -->  npm start  */
-// requerir o importar express
+// importo express
 const express = require("express");
-// el numero de puerto esta en config
+// importo el puerto desde config
 const { PORT } = require("./src/config");
-// initConnection es una función async que importamos desde database
+// importo la función que inicia la conexión a la base de datos
 const { initConnection } = require("./src/database");
 
-// crear constante llamada app y generamos una instancia de express
+// creación de una app express
 const app = express();
-
-// utilizamos app.use y le pasamos bodyparser
+// uso de boy parser
 app.use(express.json());
-// servimos la carpeta public para que pueda ser accedida desde el navegador
+// middleware para servir el frontend y acceso a scripts app.js y login.js
 app.use(express.static("./public"));
 
-const tasksAPI = require("./src/handlers");
-app.use("/", tasksAPI);
+// importo API de tareas creada mediante routing
+const tareasAPI = require("./src/handlers");
+app.use("/", tareasAPI);
+
+// si la conexión es exitosa, muestro mensaje
+initConnection().then(() => {
+  app.listen(PORT, () => {
+    console.info(`El servidor esta escuchando en el puerto: ${PORT}`);
+  });
+});
 
 // chequeo de conexión
 // connection.connect((error) => {
@@ -23,9 +29,8 @@ app.use("/", tasksAPI);
 //   console.info("la base de datos esta funcionando");
 // });
 
-initConnection().then(() => {
-  // escuchar el puerto (alt96 = `)
-  app.listen(PORT, () => {
-    console.info(`El servidor esta escuchando en el puerto ${PORT}`);
-  });
-});
+// // escuchar el puerto (alt96 = `)
+
+// app.listen(PORT, () => {
+//   console.info(`El servidor esta escuchando en el puerto: ${PORT}`);
+// });
