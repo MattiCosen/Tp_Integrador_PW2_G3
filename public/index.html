@@ -16,20 +16,21 @@
  
   <body onload="initApp();">
     <nav>
-      <h1 class="title mt-3">Lista de tareas - API para el IUPA</h1>
+      
     </nav>
     <div class="l-form">
      
     <nav class="panel" id="login-form">
+      <h1 class="title mt-3">Lista de tareas - API para el IUPA</h1>
       <p class="panel-heading">Login</p>
 
       <div class="panel-block">
         
           <div class="field">
             <!--<label class="label" for="user_name">Nombre de usuario: </label>-->
-            <div class="control has-icons-left has-icons-right">
+            <div class="control has-icons-left has-icons-right ">
               <input class="input is-success userSpan" type="text" placeholder="Usuario" value="">
-              <span class="icon is-small is-left">
+              <span class="icon is-small is-left form__label">
                 <i class="fas fa-user"></i>
               </span>
               <span class="icon is-small is-right">
@@ -39,7 +40,7 @@
             <!-- <p id="input_username_help" class="help is-hidden is-danger"></p> -->
             <!--<label class="label mt-4" for="password">Contraseña: </label>-->
             <div class="control has-icons-left has-icons-right">
-              <input class="input is-danger" type="password" placeholder="Contraseña" value="">
+              <input class="input is-danger passSpan" type="password" placeholder="Contraseña" value="">
               <span class="icon is-small is-left">
                 <i class="fas fa-key"></i>
               </span>
@@ -50,7 +51,7 @@
             <!-- <p id="input_password_help" class="help is-hidden is-danger"></p> -->
             <button
               type="button"
-              class="button is-small mt-5 is-success"
+              class="button form__button"
               id="loginButton"
             >
               Iniciar sesión
