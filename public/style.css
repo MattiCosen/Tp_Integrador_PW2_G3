@@ -1,0 +1,41 @@
+:root {
+  --first-color: #1a73e8;
+  --input-color: #80868b;
+  --border-color: #dadce0;
+
+  --normal-font-size: 1rem;
+}
+
+*,
+::before,
+::after {
+  box-sizing: border-box;
+}
+
+.l-form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  padding: 2rem;
+}
+
+.panel {
+  width: 560px;
+  padding: 4rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 10px 25px rgba(92, 99, 105, 0.2);
+}
+
+.panel-heading {
+  font-weight: 400;
+  margin-bottom: 3rem;
+}
+
+.panel-block {
+  justify-content: center;
+}
+
+.userSpan {
+  margin-bottom: 45px;
+}
